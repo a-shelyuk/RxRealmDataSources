@@ -42,21 +42,11 @@ open class RxCollectionViewRealmDataSource <E: Object>: NSObject, UICollectionVi
         }
     }
 
-    public init<CellType>(cellClass: CellType.Type, cellConfig: @escaping CollectionCellConfig<E, CellType>) where CellType: UICollectionViewCell, CellType: ReusableView {
-        self.cellIdentifier = cellClass.reuseIdentifier
-        self.cellFactory = { ds, cv, ip, model in
-            let cell: CellType = cv.dequeueReusableCell(forIndexPath: ip)
-            cellConfig(cell, ip, model)
-
-            return cell
-        }
-    }
-
-    var headerViewClass: AnyClass? {
+    public var headerViewClass: AnyClass? {
         didSet { collectionView?.register(headerViewClass, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader") }
     }
 
-    var headerViewNib: UINib? {
+    public var headerViewNib: UINib? {
         didSet { collectionView?.register(headerViewNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader") }
     }
 
